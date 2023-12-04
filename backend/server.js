@@ -12,9 +12,9 @@ const cors = require('cors');
 
 const path = require('path');
 
-app.get('/', (req, res) => {
-  res.send('server is running');
-});
+// app.get('/', (req, res) => {
+//   res.send('server is running');
+// });
 dotEnv.config({
   path: 'backend/config/config.env',
 });
@@ -33,12 +33,13 @@ app.use('/rest-api', authRouter);
 app.use('/rest-api', dashboardRoute);
 app.use('/rest-api', homeRoutes);
 app.use('/rest-api', homeCommentRoutes);
-//db connection
-dbConnect();
 app.use(express.static(path.join(__dirname, '../frontend/build')));
 app.get('*', function (req, res) {
   res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
 });
+//db connection
+dbConnect();
+
 const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, (error) => {
